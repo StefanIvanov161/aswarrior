@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --color-accent: #D4500A;
+  --color-accent-gold: #C8921A;
+  --color-gunmetal: #111111;
+  --color-charcoal: #1A1A1A;
+  --color-steel: #2D3748;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  background-color: #1c1c1c;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #1c1c1c;
+  color: #E2E8F0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: #D4500A #1c1c1c;
+  scrollbar-width: thin;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #1c1c1c; }
+::-webkit-scrollbar-thumb { background: #D4500A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #b83d08; }
+
+/* Glassmorphism */
+.glass {
+  background: rgba(15, 15, 15, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Sweep shine button effect */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-sweep:hover::after {
+  transform: translateX(100%);
+}
+
+/* Glow pulse on hover */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 80, 10, 0); }
+  50%       { box-shadow: 0 0 22px 5px rgba(212, 80, 10, 0.45); }
+}
+.btn-glow:hover {
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+/* Image zoom container */
+.img-zoom-wrap {
+  overflow: hidden;
+}
+.img-zoom {
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+.img-zoom-wrap:hover .img-zoom {
+  transform: scale(1.08);
+}
+
+/* Quick Add slide-up bar */
+.quick-add-bar {
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-card:hover .quick-add-bar {
+  transform: translateY(0);
+}
+
+/* Slider dots */
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slider-dot.active {
+  width: 30px;
+  background: #D4500A;
+}
+
+/* Tactical dot-grid pattern (used as bg overlay) */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Nav underline hover */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: #D4500A;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Scroll reveal base — managed by Framer Motion */
+
+/* Product card badge */
+.badge {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+/* Animated scroll chevron */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+.bounce-slow {
+  animation: bounce-slow 1.8s ease-in-out infinite;
+}
+
+/* Grain overlay (adds film-grain texture to hero/banners) */
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
